@@ -11,8 +11,8 @@
 	--gray: 96, 115, 159;
 	--gray-light: 246, 239, 229;
 	--gray-dark: 51, 33, 22;
-	--desert-cream-gradient: rgba(var(--desert-cream), 50%), #fff;
 	--desert-cream: 246, 239, 229;
+	--desert-cream-gradient: rgba(var(--desert-cream), 50%), #fff;
 	--box-shadow:
 		0 2px 6px rgba(var(--gray), 25%), 0 8px 24px rgba(var(--gray), 33%),
 		0 16px 32px rgba(var(--gray), 33%);
