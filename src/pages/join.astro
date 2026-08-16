@@ -12,7 +12,7 @@ import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 		<BaseHead title={`Join the Rise | ${SITE_TITLE}`} description={SITE_DESCRIPTION} />
 		<style>
 			.join-main {
-				max-width: 560px;
+				max-width: min(560px, calc(100% - 3em));
 				margin: 0 auto;
 				padding: 4em 1.5em 5em;
 				text-align: center;
