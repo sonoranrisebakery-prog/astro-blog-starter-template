@@ -1,0 +1,105 @@
+---
+export const prerender = false;
+
+import BaseHead from '../../components/BaseHead.astro';
+import { SITE_TITLE } from '../../consts';
+import { SESSION_COOKIE, createSessionToken } from '../../lib/auth';
+
+const env = (Astro.locals as { runtime?: { env?: Record<string, string> } }).runtime?.env;
+const password = env?.EDITOR_PASSWORD ?? import.meta.env.EDITOR_PASSWORD;
+
+const next = Astro.url.searchParams.get('next') || '/admin/new-post';
+let error = '';
+
+if (Astro.request.method === 'POST') {
+	if (!password) {
+		error = 'EDITOR_PASSWORD is not configured on the server.';
+	} else {
+		const form = await Astro.request.formData();
+		const submitted = form.get('password');
+		if (submitted === password) {
+			const token = await createSessionToken(password);
+			Astro.cookies.set(SESSION_COOKIE, token, {
+				path: '/',
+				httpOnly: true,
+				secure: true,
+				sameSite: 'lax',
+				maxAge: 60 * 60 * 24 * 30,
+			});
+			return Astro.redirect(next);
+		}
+		error = 'Wrong password.';
+	}
+}
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead title={`Journal Login | ${SITE_TITLE}`} description="Sonoran Rise Bakery journal editor login" />
+	</head>
+	<body>
+		<main class="login-main">
+			<form class="login-form" method="POST">
+				<h1>Journal Login</h1>
+				{error && <p class="error">{error}</p>}
+				<label class="sr-only" for="password">Password</label>
+				<input
+					id="password"
+					type="password"
+					name="password"
+					placeholder="Password"
+					autocomplete="current-password"
+					autofocus
+					required
+				/>
+				<button type="submit">Log in</button>
+			</form>
+		</main>
+		<style>
+			.login-main {
+				min-height: 80vh;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				padding: 1em;
+			}
+			.login-form {
+				width: 100%;
+				max-width: 340px;
+				display: flex;
+				flex-direction: column;
+				gap: 0.75em;
+			}
+			.login-form h1 {
+				text-align: center;
+				margin-bottom: 0.25em;
+			}
+			.login-form input {
+				padding: 0.7em 0.85em;
+				border: 1px solid rgb(var(--gray));
+				border-radius: 4px;
+				font-family: inherit;
+			}
+			.login-form button {
+				padding: 0.7em;
+				background-color: var(--accent);
+				color: #fff;
+				border: none;
+				border-radius: 4px;
+				font-family: inherit;
+				font-weight: 700;
+				cursor: pointer;
+			}
+			.login-form button:hover {
+				background-color: var(--accent-dark);
+			}
+			.error {
+				color: var(--accent-dark);
+				font-weight: 700;
+				text-align: center;
+				margin: 0;
+			}
+		</style>
+	</body>
+</html>

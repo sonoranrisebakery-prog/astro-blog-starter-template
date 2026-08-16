@@ -1,0 +1,149 @@
+---
+export const prerender = false;
+
+import BaseHead from '../../components/BaseHead.astro';
+import { SITE_TITLE } from '../../consts';
+
+const today = new Date().toISOString().slice(0, 10);
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead title={`New Journal Post | ${SITE_TITLE}`} description="Sonoran Rise Bakery journal editor" />
+	</head>
+	<body>
+		<main class="editor-main">
+			<h1>New Journal Post</h1>
+			<form id="post-form" class="post-form">
+				<label for="title">Title</label>
+				<input id="title" name="title" type="text" required autofocus />
+
+				<label for="description">Short description</label>
+				<input
+					id="description"
+					name="description"
+					type="text"
+					placeholder="One line, shows up in previews and search"
+					required
+				/>
+
+				<label for="heroImage">Hero image URL (optional)</label>
+				<input
+					id="heroImage"
+					name="heroImage"
+					type="url"
+					placeholder="https://... (leave blank for a text-only post)"
+				/>
+
+				<label for="pubDate">Date</label>
+				<input id="pubDate" name="pubDate" type="date" value={today} required />
+
+				<label for="body">Post</label>
+				<textarea id="body" name="body" rows="14" required></textarea>
+
+				<button type="submit" id="submit-btn">Publish</button>
+				<p id="status" class="status" role="status"></p>
+			</form>
+		</main>
+		<style>
+			.editor-main {
+				max-width: 640px;
+				margin: 0 auto;
+				padding: 2em 1em 4em;
+			}
+			.post-form {
+				display: flex;
+				flex-direction: column;
+				gap: 0.35em;
+			}
+			.post-form label {
+				font-weight: 700;
+				margin-top: 0.75em;
+			}
+			.post-form input,
+			.post-form textarea {
+				font-family: inherit;
+				font-size: 16px;
+				padding: 0.6em 0.75em;
+				border: 1px solid rgb(var(--gray));
+				border-radius: 4px;
+				width: 100%;
+				box-sizing: border-box;
+			}
+			.post-form textarea {
+				resize: vertical;
+				line-height: 1.5;
+			}
+			.post-form button {
+				margin-top: 1.25em;
+				padding: 0.8em;
+				background-color: var(--accent);
+				color: #fff;
+				border: none;
+				border-radius: 4px;
+				font-family: inherit;
+				font-size: 1.05em;
+				font-weight: 700;
+				cursor: pointer;
+			}
+			.post-form button:hover {
+				background-color: var(--accent-dark);
+			}
+			.post-form button:disabled {
+				opacity: 0.6;
+				cursor: default;
+			}
+			.status {
+				margin-top: 0.75em;
+				font-weight: 700;
+			}
+			.status.success {
+				color: var(--accent-dark);
+			}
+			.status.error {
+				color: #b3261e;
+			}
+		</style>
+		<script>
+			const form = document.getElementById('post-form') as HTMLFormElement;
+			const submitBtn = document.getElementById('submit-btn') as HTMLButtonElement;
+			const status = document.getElementById('status') as HTMLParagraphElement;
+
+			form.addEventListener('submit', async (e) => {
+				e.preventDefault();
+				status.textContent = '';
+				status.className = 'status';
+				submitBtn.disabled = true;
+				submitBtn.textContent = 'Publishing...';
+
+				const data = Object.fromEntries(new FormData(form).entries());
+
+				try {
+					const res = await fetch('/api/publish', {
+						method: 'POST',
+						headers: { 'Content-Type': 'application/json' },
+						body: JSON.stringify(data),
+					});
+					const result = await res.json();
+
+					if (result.ok) {
+						status.textContent = `Published! It'll be live at ${result.path} in about a minute or two once the site rebuilds.`;
+						status.classList.add('success');
+						form.reset();
+						(document.getElementById('pubDate') as HTMLInputElement).valueAsDate = new Date();
+					} else {
+						status.textContent = result.error || 'Something went wrong.';
+						status.classList.add('error');
+					}
+				} catch (err) {
+					status.textContent = 'Network error — check your connection and try again.';
+					status.classList.add('error');
+				} finally {
+					submitBtn.disabled = false;
+					submitBtn.textContent = 'Publish';
+				}
+			});
+		</script>
+	</body>
+</html>
