@@ -227,6 +227,11 @@ import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 				});
 			}
 
+			function close(item: HTMLElement) {
+				item.classList.remove('expanded');
+				item.setAttribute('aria-expanded', 'false');
+			}
+
 			items.forEach((item) => {
 				item.addEventListener('click', () => toggle(item));
 				item.addEventListener('keydown', (e) => {
@@ -235,6 +240,11 @@ import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 						toggle(item);
 					}
 				});
+				// A click (touch, or a stray mouse click while hovering) can leave
+				// .expanded set after the pointer moves away; hover alone would
+				// otherwise revert fine, so reset explicitly on mouseleave/blur.
+				item.addEventListener('mouseleave', () => close(item));
+				item.addEventListener('blur', () => close(item));
 			});
 		</script>
 	</body>
