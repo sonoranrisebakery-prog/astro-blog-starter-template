@@ -10,5 +10,11 @@
 	"observability": {
 		"enabled": true
 	},
-	"upload_source_maps": true
+	"upload_source_maps": true,
+	"r2_buckets": [
+		{
+			"binding": "MEDIA",
+			"bucket_name": "srb-journal-media"
+		}
+	]
 }

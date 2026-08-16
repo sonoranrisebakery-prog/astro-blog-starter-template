@@ -4,7 +4,7 @@ import { SESSION_COOKIE, verifySessionToken } from './lib/auth';
 export const onRequest = defineMiddleware(async (context, next) => {
 	const { pathname } = context.url;
 	const isProtectedPage = pathname.startsWith('/admin') && pathname !== '/admin/login';
-	const isProtectedApi = pathname === '/api/publish';
+	const isProtectedApi = pathname === '/api/publish' || pathname === '/api/upload';
 
 	if (!isProtectedPage && !isProtectedApi) {
 		return next();
