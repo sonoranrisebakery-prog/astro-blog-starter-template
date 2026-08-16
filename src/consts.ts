@@ -7,4 +7,4 @@ export const SITE_DESCRIPTION = "Phoenix artisan bakery creating 100% freshly mi
 // Flip to true when the site is ready for search engines and social link
 // previews to actually find it. While false, every page is marked noindex
 // and robots.txt blocks crawling.
-export const SITE_IS_PUBLIC = false;
+export const SITE_IS_PUBLIC = true;
