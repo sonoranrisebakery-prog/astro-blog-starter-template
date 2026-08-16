@@ -8,21 +8,43 @@ import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 
 <!doctype html>
 <html lang="en">
-<head>
-	<BaseHead title={`Join | ${SITE_TITLE}`} description={SITE_DESCRIPTION} />
-</head>
+	<head>
+		<BaseHead title={`Join the Rise | ${SITE_TITLE}`} description={SITE_DESCRIPTION} />
+		<style>
+			.join-main {
+				max-width: 560px;
+				margin: 0 auto;
+				padding: 4em 1.5em 5em;
+				text-align: center;
+			}
+			.join-main h1 {
+				margin-bottom: 0.5em;
+			}
+			.join-main .lead {
+				font-size: 1.1rem;
+				line-height: 1.7;
+				color: rgb(var(--gray-dark));
+				margin-bottom: 2em;
+			}
+			.join-main .newsletter-signup {
+				margin: 0 auto;
+				text-align: left;
+			}
+		</style>
+	</head>
 
-<body>
-	<Header />
+	<body>
+		<Header />
 
-	<main>
-		<h1>Join The Rise</h1>
-		<p>
-			A new food tradition rising from the Sonoran Desert.
-		</p>
-        <NewsletterSignup />
-	</main>
+		<main class="join-main">
+			<h1>Join the Rise</h1>
+			<p class="lead">
+				We're not open yet &mdash; we're still perfecting the grain, the ferment, and the craft. Join the list
+				and you'll be the first to know when the ovens turn on, with updates on the journey along the way.
+			</p>
+			<NewsletterSignup />
+		</main>
 
-	<Footer />
-</body>
+		<Footer />
+	</body>
 </html>
