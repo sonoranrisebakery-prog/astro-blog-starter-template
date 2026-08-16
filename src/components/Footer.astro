@@ -3,7 +3,8 @@ const today = new Date();
 ---
 
 <footer>
-	&copy; {today.getFullYear()} Sonoran Rise Bakery. All rights reserved.
+	<div class="footer-top">
+		<span class="footer-word">Sonoran Rise Bakery</span>
 	<div class="social-links">
 		<a href="https://www.instagram.com/sonoranrisebakery/" target="_blank">
 			<span class="sr-only">Follow Us on Instagram</span>
@@ -48,25 +49,54 @@ const today = new Date();
 			>
 		</a>
 	</div>
+	</div>
+	<p class="copyright">&copy; {today.getFullYear()} Sonoran Rise Bakery. All rights reserved.</p>
 </footer>
 <style>
 	footer {
-		padding: 2em 1em 6em 1em;
-		background: linear-gradient(var(--gray-gradient)) no-repeat;
-		color: rgb(var(--gray-dark));
-		text-align: center;
+		padding: 1.75em 2em 2.25em;
+		background: #2a180c;
+		color: #f3e7d4;
+	}
+	.footer-top {
+		max-width: 960px;
+		margin: 0 auto;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		flex-wrap: wrap;
+		gap: 1em;
+	}
+	.footer-word {
+		font-family: "Lo-Type", serif;
+		font-size: 1.1em;
+		letter-spacing: 0.02em;
 	}
 	.social-links {
 		display: flex;
-		justify-content: center;
-		gap: 1em;
-		margin-top: 1em;
+		gap: 1.25em;
 	}
 	.social-links a {
 		text-decoration: none;
-		color: rgb(var(--gray-dark));
+		color: #f3e7d4;
+		opacity: 0.85;
 	}
 	.social-links a:hover {
-		color: rgb(var(--gray-dark));
+		opacity: 1;
+	}
+	.copyright {
+		max-width: 960px;
+		margin: 1.25em auto 0;
+		padding-top: 1.1em;
+		border-top: 1px solid rgba(243, 231, 212, 0.15);
+		font-size: 0.75em;
+		color: rgba(243, 231, 212, 0.65);
+		text-align: center;
+	}
+	@media (max-width: 560px) {
+		.footer-top {
+			flex-direction: column;
+			text-align: center;
+		}
 	}
 </style>
