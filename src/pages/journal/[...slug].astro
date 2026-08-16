@@ -4,7 +4,7 @@ import JournalPost from '../../layouts/JournalPost.astro';
 import { render } from 'astro:content';
 
 export async function getStaticPaths() {
-	const posts = await getCollection('Journal');
+	const posts = await getCollection('journal');
 	return posts.map((post) => ({
 		params: { slug: post.id },
 		props: post,

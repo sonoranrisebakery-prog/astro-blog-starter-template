@@ -5,12 +5,15 @@
  */
 
 :root {
-	--accent: #d89a1a;
-	--accent-dark: #b24c1d;
-	--black: 51, 33, 22;
+	/* Official brand palette, sampled from the Sonoran Rise Bakery logo (Aug 2026) */
+	--accent: #f89c26; /* sun */
+	--accent-dark: #a93f24; /* mesa, near */
+	--mesa-light: #cd5627; /* mesa, far */
+	--wheat: #edd2b6; /* wheat highlight */
+	--black: 57, 35, 16; /* cactus outline */
 	--gray: 96, 115, 159;
 	--gray-light: 246, 239, 229;
-	--gray-dark: 51, 33, 22;
+	--gray-dark: 93, 59, 34; /* wordmark brown */
 	--desert-cream: 246, 239, 229;
 	--desert-cream-gradient: rgba(var(--desert-cream), 50%), #fff;
 	--box-shadow:
@@ -27,6 +30,20 @@
 @font-face {
 	font-family: "Atkinson";
 	src: url("/fonts/atkinson-bold.woff") format("woff");
+	font-weight: 700;
+	font-style: normal;
+	font-display: swap;
+}
+@font-face {
+	font-family: "Lo-Type";
+	src: url("/fonts/lo-type/lo-type-regular.woff2") format("woff2");
+	font-weight: 400;
+	font-style: normal;
+	font-display: swap;
+}
+@font-face {
+	font-family: "Lo-Type";
+	src: url("/fonts/lo-type/lo-type-bold.woff2") format("woff2");
 	font-weight: 700;
 	font-style: normal;
 	font-display: swap;
@@ -59,6 +76,9 @@ h6 {
 	margin: 0 0 0.5rem 0;
 	color: rgb(var(--black));
 	line-height: 1.2;
+	font-family: "Lo-Type", "Atkinson", sans-serif;
+	font-weight: 400;
+	letter-spacing: 0.02em;
 }
 h1 {
 	font-size: 3.052em;
