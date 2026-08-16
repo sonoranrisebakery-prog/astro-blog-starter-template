@@ -103,19 +103,19 @@ import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 			.strip .item .k {
 				font-family: "Lo-Type", serif;
 				font-weight: 400;
-				font-size: 1.1rem;
+				font-size: 1.5rem;
 				color: rgb(var(--desert-cream));
-				margin-bottom: 5px;
+				margin-bottom: 7px;
 			}
 			.strip .item .v {
-				font-size: 0.85rem;
+				font-size: 1rem;
 				color: rgba(246, 239, 229, 0.78);
 			}
 			.strip .item .detail {
 				max-height: 0;
 				overflow: hidden;
 				opacity: 0;
-				font-size: 0.85rem;
+				font-size: 0.95rem;
 				line-height: 1.6;
 				color: rgba(246, 239, 229, 0.9);
 				transition: max-height 0.35s ease, opacity 0.3s ease, margin-top 0.35s ease;
@@ -143,6 +143,12 @@ import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 				}
 				.strip .item:first-child {
 					border-top: none;
+				}
+				.strip .item .k {
+					font-size: 1.2rem;
+				}
+				.strip .item .v {
+					font-size: 0.9rem;
 				}
 			}
 		</style>
